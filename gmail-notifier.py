@@ -1,6 +1,11 @@
 #!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
+"""
+    Проверяет есть ли новые письма в gmail'е
+    и если есть – отправляет уведомление о них на jabber
+"""
+
 import urllib2, os
 import feedparser
 from pyxmpp2.simple import send_message
@@ -9,15 +14,13 @@ from optparse import OptionParser
 
 
 def sendJabberMessage(text, opts):
-    send_message(source_jid=opts.botJid, password=opts.botPass,
-                 target_jid=opts.targetJid, 
+    send_message(source_jid=opts.botJid, password=opts.botPass, target_jid=opts.targetJid,
                  body=text,
-                 settings=XMPPSettings({"starttls": True, "tls_verify_peer": False, "server": 'talk.google.com', "port": 5222}))
-
+                 settings=XMPPSettings({ "starttls": True, "tls_verify_peer": False, 
+                                         "server": 'talk.google.com', "port": 5222 }))
 
 
 if __name__ == "__main__":
-
 
     optp = OptionParser()
 
