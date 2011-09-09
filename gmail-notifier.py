@@ -13,15 +13,7 @@ from pyxmpp2.settings import XMPPSettings
 from optparse import OptionParser
 
 
-def sendJabberMessage(text, opts):
-    send_message(source_jid=opts.botJid, password=opts.botPass, target_jid=opts.targetJid,
-                 body=text,
-                 settings=XMPPSettings({ "starttls": True, "tls_verify_peer": False, 
-                                         "server": 'talk.google.com', "port": 5222 }))
-
-
-if __name__ == "__main__":
-
+def main():
     optp = OptionParser()
 
     optp.add_option("-a", "--auth", dest="auth", help="GMail http basic auth hash")
@@ -44,6 +36,18 @@ if __name__ == "__main__":
         seens = f.read().split("\n")
 
         for item in rss['entries']:
-            if (item['id'] not in seens):
+            if (item['id'] not in seens and item['author'].find(opts.botJid) < 0):
                 sendJabberMessage("*%s* \n%s\n\n%s" % (item['title'], item['author'], item['summary']), opts)
                 f.write(item['id'] + "\n")
+
+
+
+def sendJabberMessage(text, opts):
+    send_message(source_jid=opts.botJid, password=opts.botPass, target_jid=opts.targetJid,
+                 body=text,
+                 settings=XMPPSettings({ "starttls": True, "tls_verify_peer": False, 
+                                         "server": 'talk.google.com', "port": 5222 }))
+
+
+if __name__ == "__main__":
+    main()
