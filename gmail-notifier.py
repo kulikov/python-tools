@@ -7,10 +7,10 @@
 """
 
 import urllib2, os
-import feedparser
-from pyxmpp2.simple import send_message
-from pyxmpp2.settings import XMPPSettings
 from optparse import OptionParser
+import lib.feedparser
+from lib.pyxmpp2.simple import send_message
+from lib.pyxmpp2.settings import XMPPSettings
 
 
 def main():
