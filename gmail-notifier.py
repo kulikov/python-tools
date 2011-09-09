@@ -8,7 +8,7 @@
 
 import urllib2, os
 from optparse import OptionParser
-import lib.feedparser
+import lib.feedparser as feedparser
 from lib.pyxmpp2.simple import send_message
 from lib.pyxmpp2.settings import XMPPSettings
 
